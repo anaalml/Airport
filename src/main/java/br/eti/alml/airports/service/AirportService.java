@@ -1,6 +1,7 @@
 
 package br.eti.alml.airports.service;
 
+import br.eti.alml.airports.DTO.AirportMinDTO;
 import br.eti.alml.airports.entities.Airport;
 import br.eti.alml.airports.repositories.AirportRepository;
 import java.util.List;
@@ -23,4 +24,10 @@ public class AirportService {
         return result;
     }
     
+    public List<AirportMinDTO> findByCountry(String country)  {
+        List<Airport> resultAirport = airportRepository.findByCountryIgnoreCase(country);
+        List<AirportMinDTO> resultDTO = resultAirport.stream()
+                .map(x -> new AirportMinDTO(x)).toList();
+        return resultDTO;
+    }  
 }
